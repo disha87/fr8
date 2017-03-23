@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  .container
+    if (!user)
+      .index-parent
+        .index-action
+          h2 Manage your fleet with ease. 
+          h3 Try FR8 Guru to keep trucks loaded on time!
+          br
+          br
+          br
+          a(href="/login") Login
+          br
+          a(href="/register") Register
+    if (user)
+      .add-load-parent
+        .add-load
+          .add-load-title Enter New Load
+          .add-load-form
+            form(role='form', action="/loads",method="post", style='max-width: 300px;')
+              .form-group
+                  input.form-control(type='text', name="origin", placeholder='Origin')
+              .form-group
+                  input.form-control(type='text', name="destination", placeholder='Destination')
+              .form-group
+                  input.form-control(type='date', name="pickupTime", placeholder='Enter Pickup Time')
+              .form-group
+                  input.form-control(type='date', name="dropoffTime", placeholder='Enter Dropoff Time')
+              .form-group
+                  input.form-control(type='number', name="rate", placeholder='Rate')
+              .form-group
+                  input.form-control(type='text', name="carrierId", placeholder='Carrier')
+              .form-group
+                  input.form-control(type='text', name="driverId", placeholder='Driver')
+              button.btn.btn-default(type='submit') Submit
+              &nbsp;
+              a(href='/')
+                button.btn.btn-primary(type="button") Cancel

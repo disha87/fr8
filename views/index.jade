@@ -1,0 +1,75 @@
+extends layout
+
+block content
+  .container
+    if (!user)
+      .index-parent
+        .index-action
+          h2 Manage your fleet with ease. 
+          h3 Try FR8 Guru to keep trucks loaded on time!
+          br
+          br
+          br
+          a(href="/login") Login
+          br
+          a(href="/register") Register
+    if (user)
+      .index-user-parent
+        .index-user-schedule
+          div.index-user-title
+            h1 Schedule Information  
+            br
+          .section2
+            div.schedule-block
+              if(loads.DriverLoads.length > 0)
+                div.driver Schedule - Drivers
+                br
+                br
+                mixin driver-schedule(load)
+                  li
+                    div.driverCarrier= load.driverId
+                    div.loadItem
+                      span= load.origin
+                      span  -  
+                      span= load.destination
+                    div.loadTime
+                      span= load.pickupTime.toLocaleDateString() 
+                      span= ' '
+                      span= load.pickupTime.toLocaleTimeString()
+                      span  -  
+                      span= load.dropoffTime.toLocaleDateString() 
+                      span= ' '
+                      span= load.dropoffTime.toLocaleTimeString()                      
+                    br
+              
+              mixin owner-operator-schedule(load)
+                li
+                  div.driverCarrier= load.driverId
+                  div.loadItem
+                    span= load.origin
+                    span  -  
+                    span= load.destination
+                  div.loadTime
+                    span= load.pickupTime.toLocaleDateString() 
+                    span= ' '
+                    span= load.pickupTime.toLocaleTimeString()
+                    span  -  
+                    span= load.dropoffTime.toLocaleDateString() 
+                    span= ' '
+                    span= load.dropoffTime.toLocaleTimeString()
+                br              
+          
+              if (user.type != "OwnerOperator")
+                for load in loads.DriverLoads
+                  +driver-schedule(load)
+              if(loads.OwnerOperatorLoads.length > 0)
+                div.owner-operator Schedule - Owner Operator
+                br
+                br
+                for load in loads.OwnerOperatorLoads
+                  +owner-operator-schedule(load)  
+          div.index-user-action
+            a(href="/addLoad").addLoad Add new load
+            a(href="/logout").logout Logout #{user.username}
+        
+                

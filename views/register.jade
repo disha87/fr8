@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  .container
+    .register-parent
+      .register
+        .register-title FR8 Register Account
+        .register-form
+          form(role='form', action="/register",method="post", style='max-width: 300px;')
+            .form-group
+                input.form-control(type='text', name="username", placeholder='Enter Username')
+            .form-group
+              input.form-control(type='password', name="password", placeholder='Password')
+            .form-group
+                        label Select Type
+                                    .radio
+                                      label
+                                        input(type="radio", name="type", value="Carrier", checked=true)#Carrier
+                                        | Carrier
+                                    .radio
+                                      label
+                                        input(type="radio", name="type", value="OwnerOperator", checked=false)#OwnerOperator
+                                        | OwnerOperator
+                                    .radio
+                                      label
+                                        input(type="radio", name="type", value="Driver",checked=role=='driver')#Driver
+                                        | Driver
+            .form-group
+              input.form-control(type='text', name="carrier", placeholder='Add Carrier if you are a driver')
+            .form-group
+              input.form-control(type='text', name="trustedOwnerOperators", placeholder='Add TrustedOperator if you are a carrier')            
+            button.btn.btn-default(type='submit') Submit
+            &nbsp;
+            a(href='/')
+              button.btn.btn-primary(type="button") Cancel
